@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  p(class='well hidden-s') Plant system
+
+  div(id='buttons')
+    ul
+      each val, index in state
+          li
+            if val
+              input(
+                data-toggle='toggle',
+                type='checkbox'
+                id=index
+                checked
+              )
+            else
+              input(
+                data-toggle='toggle',
+                type='checkbox'
+                id=index
+              )

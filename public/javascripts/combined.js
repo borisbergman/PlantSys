@@ -2,8 +2,8 @@
 
 (function() {
 
-
 })();
+
 
 
 $(document).ready(function (){
@@ -16,21 +16,27 @@ $(document).ready(function (){
 
     $("#buttons input").each(function(i, el){
        $('#' + el.id + ':input').change(function(e, s) {
+
           if(disableEvent) return;
           socket.emit('message', {
-          id : el.id ,
-          checked : el.checked});
+          id : el.id.split('-')[1],
+          status :
+            {
+              checked : el.checked,
+              time : 10
+            }
+          });
       });
     })
 
     socket.on('switched', function(msg){
-        //alert(msg);
-        if($('#' + msg.id).is(':checked') === msg.checked) {
+        $('#time-' + msg.id).text(msg.status.time);
+        if($('#input-' + msg.id).is(':checked') === msg.status.checked) {
             return;
         }
-        //alert(msg);
         disableEvent = true;
-        $('#' + msg.id).bootstrapToggle(dictoo[msg.checked]);
+        $('#input-' + msg.id).bootstrapToggle(dictoo[msg.status.checked]);
         disableEvent = false;
     });
+
 });

@@ -1,7 +1,7 @@
 _ = require('underscore');
 
 var toObj = data => data.reduce(function(o, i) {
-  o['input' + i] = false;
+  o[i] = {checked: false, time: 0};
   return o;
 }, {});
 
